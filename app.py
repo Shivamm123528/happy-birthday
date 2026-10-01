@@ -7,7 +7,7 @@ import streamlit as st
 import gift_data as g
 from gate import run_gate
 
-st.set_page_config(page_title="For Chhaya 💗", page_icon="💗", layout="centered")
+st.set_page_config(page_title="Chhaya ke liye 💗", page_icon="💗", layout="centered")
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 
@@ -88,16 +88,16 @@ for line in g.SPLASH_LINE:
     st.markdown(f"<p class='center'>{line}</p>", unsafe_allow_html=True)
 
 # ---------- Open when ----------
-st.header("Open when...")
+st.header("Jab...")
 for env in g.ENVELOPES:
     with st.expander(env["title"]):
         for line in env["lines"]:
             st.markdown(line)
         if env.get("show_call"):
-            st.markdown(f"[📞 Call Mom](tel:{g.MOM_PHONE})")
+            st.markdown(f"[📞 Maa ko call karo](tel:{g.MOM_PHONE})")
 
 # ---------- Voice notes ----------
-st.header("Voice notes")
+st.header("Meri awaaz mein")
 for note in g.VOICE_NOTES:
     st.subheader(note["title"])
     audio_path = p(note["file"])
@@ -109,14 +109,14 @@ for note in g.VOICE_NOTES:
     st.markdown(f"<p class='script'>{note['script']}</p>", unsafe_allow_html=True)
 
 # ---------- Memories ----------
-st.header("Our little map")
+st.header("Hamara chhota sa map")
 cols = st.columns(2)
 for i, (title, text) in enumerate(g.MEMORIES):
     with cols[i % 2]:
         st.markdown(f"<div class='card'><b>{title}</b><br>{text}</div>", unsafe_allow_html=True)
 
 # ---------- Grateful ----------
-st.header("Why I'm grateful")
+st.header("Shukriya, kyunki...")
 st.markdown(g.GRATEFUL_INTRO)
 for item in g.GRATEFUL:
     st.markdown(f"- {item}")
@@ -125,28 +125,28 @@ for item in g.LOVE_LIST:
     st.markdown(f"- {item}")
 
 # ---------- Next ----------
-st.header("Things we'll do next")
+st.header("Aage hum ye karenge")
 checked = [st.checkbox(item, key=f"next_{i}") for i, item in enumerate(g.NEXT_UP)]
 if all(checked):
     st.toast(g.NEXT_UP_DONE, icon="💗")
     st.success(g.NEXT_UP_DONE)
 
 # ---------- Smile ----------
-st.header("Need a smile?")
-if st.button("Make me smile 😊"):
+st.header("Muskurana hai?")
+if st.button("Mujhe hansao 😊"):
     st.session_state["smile"] = random.choice(g.SMILE_MEMORIES)
 if st.session_state.get("smile"):
     st.markdown(f"<div class='smile'>{st.session_state['smile']}</div>", unsafe_allow_html=True)
 
 # ---------- Wishes ----------
-st.header("Wishes for you this year")
+st.header("Is saal ke liye meri wishes")
 for title, text in g.WISHES:
     st.markdown(f"<div class='wish'><b>{title}</b><br>{text}</div>", unsafe_allow_html=True)
 
 # ---------- Photos ----------
 available = [ph for ph in g.PHOTOS if os.path.exists(p(ph))]
 if available:
-    st.header("Photo wall")
+    st.header("Hamari tasveerein")
     cols = st.columns(2)
     for i, ph in enumerate(available):
         try:
@@ -155,7 +155,7 @@ if available:
             pass
 
 # ---------- Closing ----------
-st.header("One last thing")
+st.header("Ek aakhri baat")
 for line in g.CLOSING:
     st.markdown(line)
 st.markdown(f"<h3 class='center'>{g.CLOSING_LINE}</h3>", unsafe_allow_html=True)
