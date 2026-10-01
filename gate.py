@@ -79,18 +79,18 @@ def run_gate():
         st.markdown(f"<p>{g.LOCK_HINT}</p>", unsafe_allow_html=True)
         with st.form("lock"):
             pw = st.text_input("Password", placeholder="dd/mm/yyyy", label_visibility="collapsed")
-            submitted = st.form_submit_button("Open 💗")
+            submitted = st.form_submit_button("Kholo 💗")
         if submitted:
             if _same_date(pw, g.PASSWORD):
                 st.session_state["stage"] = "heart"
                 st.rerun()
             else:
-                st.caption("Hmm, not quite. Try again 🙂")
+                st.caption("Hmm, ye sahi nahi hai. Ek baar aur try karo 🙂")
         return False
 
     components.html(HEART_HTML.replace("__CAPTION__", g.HEART_CAPTION), height=340)
     mid = st.columns([1, 2, 1])[1]
-    if mid.button("Open your gift 💗", use_container_width=True):
+    if mid.button("Apna gift kholo 💗", use_container_width=True):
         st.session_state["stage"] = "gift"
         st.rerun()
     return False
